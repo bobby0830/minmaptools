@@ -9,18 +9,22 @@
       }
     },
     {
-      "src": "api/*.js",
+      "src": "server/*.js",
       "use": "@vercel/node"
     }
   ],
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/:path*",
-      "destination": "/api/:path*"
+      "src": "/api/(.*)",
+      "dest": "/server/$1"
     },
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "src": "^/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": ".*",
+      "dest": "/index.html"
     }
   ]
 }
