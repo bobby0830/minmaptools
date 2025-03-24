@@ -2,48 +2,50 @@
 const API_BASE_URL = '/api/mcp';
 
 class MCPService {
+  static async makeRequest(endpoint, data) {
+    try {
+      console.log(`Making ${endpoint} request with data:`, data);
+      const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        console.error(`${endpoint} request failed:`, {
+          status: response.status,
+          statusText: response.statusText,
+          errorData,
+        });
+        throw new Error(`${endpoint} failed: ${response.statusText}`);
+      }
+
+      const result = await response.json();
+      console.log(`${endpoint} response:`, result);
+      return result;
+    } catch (error) {
+      console.error(`${endpoint} error:`, error);
+      throw error;
+    }
+  }
+
   static async createNode(nodeData) {
-    const response = await fetch(`${API_BASE_URL}/createNode`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(nodeData),
-    });
-    return response.json();
+    return this.makeRequest('createNode', nodeData);
   }
 
   static async updateNode(nodeData) {
-    const response = await fetch(`${API_BASE_URL}/updateNode`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(nodeData),
-    });
-    return response.json();
+    return this.makeRequest('updateNode', nodeData);
   }
 
   static async createEdge(edgeData) {
-    const response = await fetch(`${API_BASE_URL}/createEdge`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(edgeData),
-    });
-    return response.json();
+    return this.makeRequest('createEdge', edgeData);
   }
 
   static async analyzeMap(mapData) {
-    const response = await fetch(`${API_BASE_URL}/analyzeMap`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(mapData),
-    });
-    return response.json();
+    return this.makeRequest('analyzeMap', mapData);
   }
 }
 
