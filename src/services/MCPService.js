@@ -1,5 +1,5 @@
 // MCP Protocol service for AI integration
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/mcp';
+const API_BASE_URL = '/api/mcp';
 
 class MCPService {
   static async createNode(nodeData) {
