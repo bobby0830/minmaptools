@@ -8,6 +8,63 @@ const nodeTypes = {
   idea: { icon: '💡' },
   note: { icon: '📝' },
   question: { icon: '❓' },
+  decision: { icon: '🔄' },
+  process: { icon: '⚙️' },
+  start: { icon: '▶️' },
+  end: { icon: '⏹️' },
+  input: { icon: '📥' },
+  output: { icon: '📤' },
+};
+
+const nodeShapes = {
+  rectangle: {
+    style: {},
+    className: 'shape-rectangle',
+    handles: {
+      target: Position.Top,
+      source: Position.Bottom
+    }
+  },
+  diamond: {
+    style: {},
+    className: 'shape-diamond',
+    handles: {
+      target: Position.Top,
+      source: Position.Bottom
+    }
+  },
+  circle: {
+    style: {},
+    className: 'shape-circle',
+    handles: {
+      target: Position.Top,
+      source: Position.Bottom
+    }
+  },
+  parallelogram: {
+    style: {},
+    className: 'shape-parallelogram',
+    handles: {
+      target: Position.Top,
+      source: Position.Bottom
+    }
+  },
+  hexagon: {
+    style: {},
+    className: 'shape-hexagon',
+    handles: {
+      target: Position.Top,
+      source: Position.Bottom
+    }
+  },
+  oval: {
+    style: {},
+    className: 'shape-oval',
+    handles: {
+      target: Position.Top,
+      source: Position.Bottom
+    }
+  }
 };
 
 const nodeSizes = {
@@ -22,6 +79,7 @@ function CustomNode({ data }) {
   const inputRef = useRef(null);
   const nodeStyle = nodeTypes[data.type] || nodeTypes.note;
   const sizeStyle = nodeSizes[data.size || 'medium'];
+  const shapeStyle = nodeShapes[data.shape || 'rectangle'];
 
   const handleDoubleClick = (e) => {
     e.stopPropagation();
@@ -60,14 +118,15 @@ function CustomNode({ data }) {
 
   return (
     <div
-      className="custom-node"
+      className={`custom-node ${shapeStyle.className}`}
       style={{
-        backgroundColor: data.color || '#9999ff', // default color
-        width: sizeStyle.width,
+        backgroundColor: data.color || '#ffffff',
+        width: data.shape === 'diamond' ? 'auto' : sizeStyle.width,
         fontSize: sizeStyle.fontSize,
+        ...shapeStyle.style
       }}
     >
-      <Handle type="target" position={Position.Top} />
+      <Handle type="target" position={shapeStyle.handles.target} />
       <div className="node-content" onDoubleClick={handleDoubleClick}>
         <span className="node-icon">{nodeStyle.icon}</span>
         {isEditing ? (
@@ -84,7 +143,7 @@ function CustomNode({ data }) {
           <div className="node-label">{label}</div>
         )}
       </div>
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="source" position={shapeStyle.handles.source} />
     </div>
   );
 }

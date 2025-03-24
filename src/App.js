@@ -1,6 +1,6 @@
 // Import necessary dependencies
 // 导入必要的依赖
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import ReactFlow, {
   MiniMap,
   Controls,
@@ -8,9 +8,9 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   addEdge,
-  useReactFlow,
-  ReactFlowProvider,
   Panel,
+  ReactFlowProvider,
+  SelectionMode,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import './App.css';
@@ -18,11 +18,11 @@ import './App.css';
 // Import custom components
 // 导入自定义组件
 import CustomNode from './components/CustomNode';
-import Toolbar from './components/Toolbar';
-import SaveLoadPanel from './components/SaveLoadPanel';
-import TemplatePanel, { templates } from './components/TemplatePanel';
-import ExportPanel from './components/ExportPanel';
 import NodeControls from './components/NodeControls';
+import SaveLoadPanel from './components/SaveLoadPanel';
+import ExportPanel from './components/ExportPanel';
+import Toolbar from './components/Toolbar';
+import TemplatePanel, { templates } from './components/TemplatePanel';
 import AIService from './services/AIService';
 
 // Define node types mapping
@@ -42,6 +42,7 @@ const initialNodes = [
       type: 'idea',
       color: '#99ff99',
       size: 'medium',
+      shape: 'rectangle',
       onChange: (label) => console.log('label changed:', label) 
     },
     position: { x: 400, y: 100 },
@@ -57,11 +58,11 @@ const initialEdges = [];
 function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  const { project } = useReactFlow();
   const [nodeStyle, setNodeStyle] = useState({
     type: 'idea',
     color: '#99ff99',
-    size: 'medium'
+    size: 'medium',
+    shape: 'rectangle'
   });
 
   // Handle node label changes
@@ -82,19 +83,31 @@ function Flow() {
 
   // Add new node at a specific position
   // 在特定位置添加新节点
-  const addNode = useCallback((position) => {
-    const newNode = {
-      id: Date.now().toString(),
-      type: 'custom',
-      data: { 
-        label: 'New Node\n新节点',
-        ...nodeStyle,
-        onChange: (label) => handleNodeLabelChange(newNode.id, label)
-      },
-      position,
-    };
-    setNodes((nds) => [...nds, newNode]);
-  }, [setNodes, nodeStyle, handleNodeLabelChange]);
+  const addNode = useCallback(
+    (position) => {
+      const newNode = {
+        id: `node_${nodes.length + 1}`,
+        type: 'custom',
+        position,
+        data: {
+          label: `Node ${nodes.length + 1}`,
+          ...nodeStyle,
+          onChange: (newLabel) => {
+            setNodes((nds) =>
+              nds.map((node) => {
+                if (node.id === newNode.id) {
+                  node.data = { ...node.data, label: newLabel };
+                }
+                return node;
+              })
+            );
+          },
+        },
+      };
+      setNodes((nds) => [...nds, newNode]);
+    },
+    [nodes.length, nodeStyle, setNodes]
+  );
 
   // Handle new connections between nodes
   // 处理节点之间的新连接
@@ -107,23 +120,23 @@ function Flow() {
   // 点击画布添加新节点
   const onPaneClick = useCallback(
     (event) => {
-      if (event.detail === 2) { // Check for double-click
-        const reactFlowBounds = document.querySelector('.react-flow').getBoundingClientRect();
-        const position = project({
-          x: event.clientX - reactFlowBounds.left,
-          y: event.clientY - reactFlowBounds.top,
-        });
+      if (event.detail === 2 && event.target.classList.contains('react-flow__pane')) {
+        const bounds = event.target.getBoundingClientRect();
+        const position = {
+          x: event.clientX - bounds.left,
+          y: event.clientY - bounds.top,
+        };
         addNode(position);
       }
     },
-    [project, addNode]
+    [addNode]
   );
 
   // Delete selected nodes when Delete key is pressed
   // 按Delete键删除选中的节点
   const onKeyDown = useCallback(
     (event) => {
-      if (event.key === 'Delete') {
+      if (event.key === 'Delete' || event.key === 'Backspace') {
         setNodes((nds) => nds.filter((node) => !node.selected));
         setEdges((eds) => eds.filter((edge) => !edge.selected));
       }
@@ -132,7 +145,11 @@ function Flow() {
   );
 
   return (
-    <div className="flow-container" tabIndex={0} onKeyDown={onKeyDown}>
+    <div 
+      style={{ width: '100vw', height: '100vh' }}
+      tabIndex={0}
+      onKeyDown={onKeyDown}
+    >
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -142,18 +159,28 @@ function Flow() {
         onPaneClick={onPaneClick}
         nodeTypes={nodeTypes}
         fitView
+        selectionMode={SelectionMode.Partial}
+        selectionOnDrag={true}
+        selectionKeyCode={null}
+        multiSelectionKeyCode={null}
+        deleteKeyCode={['Delete', 'Backspace']}
       >
+        <Background variant="dots" gap={12} size={1} />
         <Controls />
         <MiniMap />
-        <Background variant="dots" gap={12} size={1} />
         <NodeControls
           onAddNode={(style) => {
-            const center = project({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
+            const center = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
             addNode(center);
           }}
           onNodeStyleChange={setNodeStyle}
         />
-        <SaveLoadPanel nodes={nodes} edges={edges} setNodes={setNodes} setEdges={setEdges} />
+        <SaveLoadPanel 
+          nodes={nodes} 
+          edges={edges} 
+          setNodes={setNodes} 
+          setEdges={setEdges} 
+        />
         <ExportPanel />
       </ReactFlow>
     </div>
@@ -164,7 +191,7 @@ function Flow() {
 // 主应用组件
 function App() {
   return (
-    <div className="app">
+    <div style={{ width: '100%', height: '100vh' }}>
       <ReactFlowProvider>
         <Flow />
       </ReactFlowProvider>

@@ -1,7 +1,19 @@
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.app-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 /* Main container styles 主容器样式 */
 .app-container {
-  width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
@@ -107,27 +119,34 @@
 
 /* Save/Load Panel styles 保存/加载面板样式 */
 .save-load-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   background: white;
   padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  display: flex;
+  gap: 10px;
 }
 
 .action-button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
+  background: #f0f0f0;
   border: none;
+  padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  transition: all 0.2s;
-  width: 100%;
-  justify-content: center;
+  color: #333;
+  transition: background-color 0.2s;
+}
+
+.action-button:hover {
+  background: #e0e0e0;
 }
 
 .action-button.save {
@@ -136,18 +155,16 @@
 }
 
 .action-button.save:hover {
-  background: #388E3C;
+  background: #45a049;
 }
 
 .action-button.load {
   background: #2196F3;
   color: white;
-  cursor: pointer;
-  display: flex;
 }
 
 .action-button.load:hover {
-  background: #1976D2;
+  background: #1e88e5;
 }
 
 .action-button.template {
@@ -166,6 +183,44 @@
 
 .action-button.clear:hover {
   background: #d32f2f;
+}
+
+/* Export panel styles */
+.export-panel {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-button.export {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: #4a90e2;
+  color: white;
+}
+
+.action-button.export:hover {
+  background: #357abd;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-button.export span {
+  font-size: 1.2em;
 }
 
 /* Custom node styles 自定义节点样式 */
@@ -198,58 +253,20 @@
   position: absolute !important;
 }
 
-.custom-node {
-  padding: 10px;
-  border-radius: 5px;
-  font-family: Arial, sans-serif;
-  color: #333;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  background-color: white;
-}
-
-.custom-node:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.node-content {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 150px;
-}
-
-.node-icon {
-  font-size: 1.2em;
-}
-
-.node-label {
-  word-break: break-word;
-  white-space: pre-wrap;
-}
-
-.node-input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 4px;
-}
-
 .node-controls {
   background: white;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 15px;
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 10;
+  min-width: 300px;
 }
 
 .control-group {
   display: flex;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .add-node-btn {
@@ -260,6 +277,7 @@
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.2s;
 }
 
 .add-node-btn:hover {
@@ -267,9 +285,17 @@
 }
 
 select {
-  padding: 6px;
+  padding: 6px 8px;
   border-radius: 4px;
   border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  min-width: 120px;
+  font-size: 14px;
+}
+
+select:hover {
+  border-color: #aaa;
 }
 
 input[type="color"] {
@@ -279,10 +305,120 @@ input[type="color"] {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  background: none;
 }
 
-/* Controls and minimap styles 控制器和小地图样式 */
+.custom-node {
+  padding: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  background-color: white;
+  min-width: 150px;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.custom-node:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.node-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+}
+
+.node-icon {
+  font-size: 1.2em;
+}
+
+.node-label {
+  word-break: break-word;
+  white-space: pre-wrap;
+  text-align: center;
+  flex: 1;
+}
+
+.node-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 4px;
+  text-align: center;
+}
+
+/* Node shapes */
+.shape-rectangle {
+  border-radius: 5px;
+}
+
+.shape-diamond {
+  width: 120px !important;
+  height: 120px !important;
+  margin: 20px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  transform: none !important;
+}
+
+.shape-diamond .node-content {
+  transform: none !important;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.shape-circle {
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.shape-parallelogram {
+  transform: skew(-20deg);
+}
+
+.shape-parallelogram .node-content {
+  transform: skew(20deg);
+}
+
+.shape-hexagon {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  min-height: 100px;
+}
+
+.shape-oval {
+  border-radius: 50% / 30%;
+}
+
+/* Handle styles */
+.react-flow__handle {
+  background: #555;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.react-flow__handle:hover {
+  background: #000;
+}
+
+/* React Flow controls */
 .react-flow__controls {
+  bottom: 20px;
+  right: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   overflow: hidden;
@@ -301,6 +437,8 @@ input[type="color"] {
 }
 
 .react-flow__minimap {
+  bottom: 20px;
+  left: 20px;
   background: white;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -317,22 +455,20 @@ input[type="color"] {
   stroke-width: 3;
 }
 
-/* Handle styles 连接点样式 */
-.react-flow__handle {
-  width: 8px;
-  height: 8px;
-  background: #fff;
-  border: 2px solid #555;
+/* Selection styles */
+.react-flow__selection {
+  background: rgba(0, 89, 220, 0.08);
+  border: 2px dashed #2196f3;
+  border-radius: 4px;
 }
 
-.react-flow__handle:hover {
-  background: #2196f3;
-  border-color: #2196f3;
-}
-
-/* Selection styles 选择样式 */
 .react-flow__node.selected {
   box-shadow: 0 0 0 2px #2196f3;
+}
+
+.react-flow__edge.selected path {
+  stroke: #2196f3;
+  stroke-width: 3;
 }
 
 /* Action panels container */
