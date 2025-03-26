@@ -1,0 +1,141 @@
+/* 全局样式 - Global styles */
+:root {
+  --bg-color: #ffffff;
+  --node-bg: #99ff99;
+  --node-border: #66cc66;
+  --text-color: #000000;
+  --edge-color: #333333;
+  --selection-color: #0096ff;
+  --grid-color: #eee;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* 节点样式 - Node styles */
+.react-flow__node {
+  background-color: var(--node-bg);
+  border: 2px solid var(--node-border);
+  border-radius: 5px;
+  padding: 10px;
+  color: var(--text-color);
+}
+
+.react-flow__node.selected {
+  border-color: var(--selection-color);
+  box-shadow: 0 0 0 2px var(--selection-color);
+}
+
+/* 连接线样式 - Edge styles */
+.react-flow__edge {
+  stroke: var(--edge-color);
+}
+
+.react-flow__edge.selected {
+  stroke: var(--selection-color);
+}
+
+/* 面板样式 - Panel styles */
+.react-flow__panel {
+  background-color: var(--bg-color);
+  border: 1px solid var(--node-border);
+  border-radius: 4px;
+  padding: 8px;
+  margin: 8px;
+}
+
+/* 搜索面板 - Search panel */
+.search-panel {
+  background-color: var(--bg-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 250px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--node-border);
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.search-results {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--grid-color);
+}
+
+.search-result-item:hover {
+  background-color: var(--node-bg);
+}
+
+/* 导出面板 - Export panel */
+.export-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.export-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--node-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.export-button:hover {
+  background-color: var(--node-border);
+}
+
+/* 主题切换按钮 - Theme toggle button */
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--node-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* 节点形状 - Node shapes */
+.shape-rectangle {
+  border-radius: 4px;
+}
+
+.shape-diamond {
+  transform: rotate(45deg);
+}
+
+.shape-diamond .react-flow__handle {
+  transform: rotate(-45deg);
+}
