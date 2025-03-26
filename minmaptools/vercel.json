@@ -26,11 +26,12 @@
       "dest": "/static/$1"
     },
     {
-      "src": "/[^.]+",
-      "dest": "/"
+      "src": "/favicon.ico",
+      "dest": "/favicon.ico"
     },
     {
-      "handle": "filesystem"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
