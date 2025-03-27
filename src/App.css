@@ -12,11 +12,132 @@ html, body, #root {
   position: relative;
 }
 
-/* Main container styles 主容器样式 */
+/* Main container styles */
 .app-container {
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5;
+}
+
+/* Control panel styles */
+.button-panel {
+  margin: 10px;
+}
+
+.control-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.add-node-button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+}
+
+.add-node-button:hover {
+  background-color: #45a049;
+}
+
+.framework-select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+  min-width: 200px;
+  color: #333;
+}
+
+.framework-select:hover {
+  border-color: #999;
+}
+
+.framework-select:focus {
+  outline: none;
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
+}
+
+/* Action panel styles */
+.action-panel {
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+}
+
+.action-panel button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+  background-color: #2196F3;
+  color: white;
+}
+
+.action-panel button:hover {
+  background-color: #1976D2;
+}
+
+/* Node styles */
+.custom-node {
+  padding: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background: white;
+  border-radius: 8px;
+  min-width: 150px;
+  text-align: center;
+}
+
+.custom-node:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.custom-node.selected {
+  box-shadow: 0 0 0 2px #4a9eff;
+}
+
+/* Node types */
+.custom-node.input {
+  background: #e3f2fd;
+  border-color: #90caf9;
+}
+
+.custom-node.output {
+  background: #f3e5f5;
+  border-color: #ce93d8;
+}
+
+.custom-node.default {
+  background: #ffffff;
+  border-color: #e0e0e0;
+}
+
+/* Flow container styles */
+.flow-container {
+  flex: 1;
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 /* Framework selector styles */
@@ -47,7 +168,7 @@ html, body, #root {
   box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.2);
 }
 
-/* Title bar styles 标题栏样式 */
+/* Title bar styles */
 .title-bar {
   padding: 1rem;
   background-color: #ffffff;
@@ -67,118 +188,327 @@ html, body, #root {
   font-size: 0.9rem;
 }
 
-/* Flow container styles 流程图容器样式 */
-.flow-container {
-  flex: 1;
-  background-color: #ffffff;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
+/* Flow wrapper styles */
 .flow-wrapper {
   width: 100%;
   height: 100%;
   outline: none;
 }
 
-/* Node styles */
-.custom-node {
-  padding: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+/* Node controls styles */
+.node-controls {
   background: white;
-  border-radius: 5px;
-  min-width: 150px;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 300px;
+}
+
+/* Control group styles */
+.control-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Add node button styles */
+.add-node-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.add-node-btn:hover {
+  background: #45a049;
+}
+
+/* Select styles */
+select {
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  min-width: 120px;
+  font-size: 14px;
+}
+
+select:hover {
+  border-color: #aaa;
+}
+
+/* Input color styles */
+input[type="color"] {
+  width: 40px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+}
+
+/* Node content styles */
+.node-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1;
+}
+
+/* Node icon styles */
+.node-icon {
+  font-size: 1.2em;
+}
+
+/* Node label styles */
+.node-label {
+  word-break: break-word;
+  white-space: pre-wrap;
+  text-align: center;
+  flex: 1;
+}
+
+/* Node input styles */
+.node-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  padding: 4px;
   text-align: center;
 }
 
-.custom-node:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+/* Node shapes styles */
+.shape-rectangle {
+  border-radius: 5px;
 }
 
-.custom-node.selected {
-  box-shadow: 0 0 0 2px #4a9eff;
+.shape-diamond {
+  width: 120px !important;
+  height: 120px !important;
+  margin: 20px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  transform: none !important;
 }
 
-/* Node types */
-.custom-node.input {
-  background: #e3f2fd;
+.shape-diamond .node-content {
+  transform: none !important;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
 }
 
-.custom-node.output {
-  background: #f3e5f5;
+.shape-circle {
+  border-radius: 50%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100px;
 }
 
-.custom-node.default {
-  background: #ffffff;
+.shape-parallelogram {
+  transform: skew(-20deg);
 }
 
-/* Toolbar styles 工具栏样式 */
-.toolbar {
+.shape-parallelogram .node-content {
+  transform: skew(20deg);
+}
+
+.shape-hexagon {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  min-height: 100px;
+}
+
+.shape-oval {
+  border-radius: 50% / 30%;
+}
+
+/* Handle styles */
+.react-flow__handle {
+  background: #555;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.react-flow__handle:hover {
+  background: #000;
+}
+
+/* React Flow controls styles */
+.react-flow__controls {
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.react-flow__controls button {
+  background: white;
+  border: none;
+  border-bottom: 1px solid #eee;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.react-flow__controls button:hover {
+  background: #f5f5f5;
+}
+
+.react-flow__minimap {
+  bottom: 20px;
+  left: 20px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Edge styles */
+.react-flow__edge-path {
+  stroke: #555;
+  stroke-width: 2;
+}
+
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke: #2196f3;
+  stroke-width: 3;
+}
+
+/* Selection styles */
+.react-flow__selection {
+  background: rgba(0, 89, 220, 0.08);
+  border: 2px dashed #2196f3;
+  border-radius: 4px;
+}
+
+.react-flow__node.selected {
+  box-shadow: 0 0 0 2px #2196f3;
+}
+
+.react-flow__edge.selected path {
+  stroke: #2196f3;
+  stroke-width: 3;
+}
+
+/* Action panels container styles */
+.action-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  right: 0;
+  top: 0;
+}
+
+.template-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Template panel styles */
+.template-panel {
   background: white;
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-width: 200px;
+  margin-top: 0.5rem;
+  min-width: 250px;
 }
 
-.toolbar-title {
+.template-title {
   font-weight: bold;
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   color: #333;
+  font-size: 1rem;
 }
 
-.toolbar-buttons {
+.template-buttons {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.toolbar-button {
+.template-button {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.8rem;
   border: 1px solid #ddd;
   border-radius: 4px;
   background: white;
   cursor: pointer;
   transition: all 0.2s;
+  text-align: left;
+  font-size: 0.9rem;
 }
 
-.toolbar-button:hover {
+.template-button:hover {
   background: #f5f5f5;
+  border-color: #2196f3;
 }
 
-.toolbar-button.selected {
+.template-icon {
+  font-size: 1.2rem;
+}
+
+.template-label {
+  flex: 1;
+}
+
+/* AI suggestions panel styles */
+.ai-suggestions {
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+}
+
+.ai-suggestions h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 14px;
+}
+
+.suggestion-button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 4px 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.suggestion-button:hover {
   background: #e3f2fd;
   border-color: #2196f3;
 }
 
-.button-icon {
-  font-size: 1.2rem;
-}
-
-.toolbar-tips {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid #eee;
-  font-size: 0.8rem;
-  color: #666;
-}
-
-.toolbar-tips ul {
-  margin: 0.5rem 0 0;
-  padding-left: 1.2rem;
-}
-
-.toolbar-tips li {
-  margin: 0.3rem 0;
-}
-
-/* Save/Load Panel styles 保存/加载面板样式 */
+/* Save/Load Panel styles */
 .save-load-panel {
   position: absolute;
   top: 10px;
@@ -284,7 +614,70 @@ html, body, #root {
   font-size: 1.2em;
 }
 
-/* Custom node styles 自定义节点样式 */
+/* Toolbar styles */
+.toolbar {
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+}
+
+.toolbar-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.toolbar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toolbar-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toolbar-button:hover {
+  background: #f5f5f5;
+}
+
+.toolbar-button.selected {
+  background: #e3f2fd;
+  border-color: #2196f3;
+}
+
+.button-icon {
+  font-size: 1.2rem;
+}
+
+.toolbar-tips {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.toolbar-tips ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.toolbar-tips li {
+  margin: 0.3rem 0;
+}
+
+/* Custom node styles */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -312,308 +705,4 @@ html, body, #root {
 .react-flow__node {
   width: auto !important;
   position: absolute !important;
-}
-
-.node-controls {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  min-width: 300px;
-}
-
-.control-group {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.add-node-btn {
-  background: #4CAF50;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.2s;
-}
-
-.add-node-btn:hover {
-  background: #45a049;
-}
-
-select {
-  padding: 6px 8px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
-  background: white;
-  cursor: pointer;
-  min-width: 120px;
-  font-size: 14px;
-}
-
-select:hover {
-  border-color: #aaa;
-}
-
-input[type="color"] {
-  width: 40px;
-  height: 30px;
-  padding: 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background: none;
-}
-
-.node-content {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 1;
-}
-
-.node-icon {
-  font-size: 1.2em;
-}
-
-.node-label {
-  word-break: break-word;
-  white-space: pre-wrap;
-  text-align: center;
-  flex: 1;
-}
-
-.node-input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 4px;
-  text-align: center;
-}
-
-/* Node shapes */
-.shape-rectangle {
-  border-radius: 5px;
-}
-
-.shape-diamond {
-  width: 120px !important;
-  height: 120px !important;
-  margin: 20px;
-  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  transform: none !important;
-}
-
-.shape-diamond .node-content {
-  transform: none !important;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-}
-
-.shape-circle {
-  border-radius: 50%;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100px;
-}
-
-.shape-parallelogram {
-  transform: skew(-20deg);
-}
-
-.shape-parallelogram .node-content {
-  transform: skew(20deg);
-}
-
-.shape-hexagon {
-  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-  min-height: 100px;
-}
-
-.shape-oval {
-  border-radius: 50% / 30%;
-}
-
-/* Handle styles */
-.react-flow__handle {
-  background: #555;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.react-flow__handle:hover {
-  background: #000;
-}
-
-/* React Flow controls */
-.react-flow__controls {
-  bottom: 20px;
-  right: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.react-flow__controls button {
-  background: white;
-  border: none;
-  border-bottom: 1px solid #eee;
-  padding: 8px;
-  cursor: pointer;
-}
-
-.react-flow__controls button:hover {
-  background: #f5f5f5;
-}
-
-.react-flow__minimap {
-  bottom: 20px;
-  left: 20px;
-  background: white;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Edge styles 连接线样式 */
-.react-flow__edge-path {
-  stroke: #555;
-  stroke-width: 2;
-}
-
-.react-flow__edge:hover .react-flow__edge-path {
-  stroke: #2196f3;
-  stroke-width: 3;
-}
-
-/* Selection styles */
-.react-flow__selection {
-  background: rgba(0, 89, 220, 0.08);
-  border: 2px dashed #2196f3;
-  border-radius: 4px;
-}
-
-.react-flow__node.selected {
-  box-shadow: 0 0 0 2px #2196f3;
-}
-
-.react-flow__edge.selected path {
-  stroke: #2196f3;
-  stroke-width: 3;
-}
-
-/* Action panels container */
-.action-panels {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
-  right: 0;
-  top: 0;
-}
-
-.template-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  background: white;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* Template panel styles */
-.template-panel {
-  background: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-top: 0.5rem;
-  min-width: 250px;
-}
-
-.template-title {
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: #333;
-  font-size: 1rem;
-}
-
-.template-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.template-button {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background: white;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: left;
-  font-size: 0.9rem;
-}
-
-.template-button:hover {
-  background: #f5f5f5;
-  border-color: #2196f3;
-}
-
-.template-icon {
-  font-size: 1.2rem;
-}
-
-.template-label {
-  flex: 1;
-}
-
-/* AI suggestions panel styles */
-.ai-suggestions {
-  background: white;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 10px;
-}
-
-.ai-suggestions h4 {
-  margin: 0 0 8px 0;
-  color: #333;
-  font-size: 14px;
-}
-
-.suggestion-button {
-  display: block;
-  width: 100%;
-  padding: 8px;
-  margin: 4px 0;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  background: #f5f5f5;
-  color: #333;
-  cursor: pointer;
-  text-align: left;
-  transition: all 0.2s;
-}
-
-.suggestion-button:hover {
-  background: #e3f2fd;
-  border-color: #2196f3;
 }
