@@ -1,3 +1,192 @@
+/* Node shapes */
+.shape-terminal {
+  border-radius: 20px;
+  background: white;
+  border: 2px solid #4CAF50;
+  padding: 10px 30px;
+}
+
+.shape-process {
+  border-radius: 4px;
+  background: white;
+  border: 2px solid #2196F3;
+  padding: 10px 20px;
+}
+
+.shape-decision {
+  transform: rotate(45deg);
+  background: white;
+  border: 2px solid #9C27B0;
+  padding: 20px;
+}
+
+.shape-decision .node-content {
+  transform: rotate(-45deg);
+}
+
+.shape-input {
+  transform: skew(-20deg);
+  background: white;
+  border: 2px solid #FF9800;
+  padding: 10px 20px;
+}
+
+.shape-input .node-content {
+  transform: skew(20deg);
+}
+
+.shape-database {
+  background: white;
+  border: 2px solid #607D8B;
+  border-radius: 4px 4px 20px 20px;
+  padding: 20px;
+  position: relative;
+}
+
+.shape-database::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: white;
+  border-bottom: 2px solid #607D8B;
+  border-radius: 4px 4px 0 0;
+}
+
+.shape-document {
+  background: white;
+  border: 2px solid #795548;
+  border-radius: 4px 4px 0 0;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.shape-document::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: transparent;
+  border-top: 2px solid #795548;
+  border-radius: 0 0 50% 50%;
+}
+
+.shape-display {
+  background: white;
+  border: 2px solid #00BCD4;
+  border-radius: 4px 20px 4px 4px;
+  padding: 10px 20px;
+}
+
+.shape-manual {
+  background: white;
+  border: 2px solid #FF5722;
+  border-radius: 4px;
+  padding: 10px 20px;
+  transform: perspective(100px) rotateX(-5deg);
+}
+
+.shape-preparation {
+  background: white;
+  border: 2px solid #673AB7;
+  clip-path: polygon(20% 0%, 80% 0%, 100% 50%, 80% 100%, 20% 100%, 0% 50%);
+  padding: 15px 30px;
+}
+
+.shape-connector {
+  background: white;
+  border: 2px solid #9E9E9E;
+  border-radius: 50%;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.shape-predefined {
+  background: white;
+  border: 2px solid #3F51B5;
+  border-radius: 4px;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.shape-predefined::before,
+.shape-predefined::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: #3F51B5;
+}
+
+.shape-predefined::before {
+  left: 10px;
+}
+
+.shape-predefined::after {
+  right: 10px;
+}
+
+.shape-annotation {
+  background: white;
+  border: 2px dashed #757575;
+  border-radius: 4px;
+  padding: 10px 20px;
+}
+
+/* Custom node styles */
+.custom-node {
+  min-width: 150px;
+  min-height: 40px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  margin: 10px;
+  position: relative;
+}
+
+.custom-node:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+.custom-node.selected {
+  box-shadow: 0 0 0 2px #4a9eff;
+}
+
+.node-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  word-break: break-word;
+  font-size: 14px;
+}
+
+/* Handle styles */
+.react-flow__handle {
+  width: 8px;
+  height: 8px;
+  background: #555;
+  border: 2px solid white;
+}
+
+.react-flow__handle:hover {
+  background: #4a9eff;
+}
+
 html, body, #root {
   width: 100%;
   height: 100%;
@@ -397,44 +586,33 @@ input[type="color"] {
 }
 
 /* Custom node styles */
-.custom-node {
-  min-width: 150px;
-  min-height: 40px;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.custom-node:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  transform: translateY(-1px);
+.app {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
 }
 
-.custom-node.selected {
-  box-shadow: 0 0 0 2px #4a9eff;
-}
-
-.node-content {
+.flow-container {
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
+  position: relative;
 }
 
-/* Handle styles */
-.react-flow__handle {
-  background: #555;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+.react-flow {
+  width: 100%;
+  height: 100%;
 }
 
-.react-flow__handle:hover {
-  background: #000;
+.react-flow__node {
+  width: auto !important;
+  position: absolute !important;
 }
 
 /* React Flow controls styles */
@@ -774,34 +952,4 @@ input[type="color"] {
 
 .toolbar-tips li {
   margin: 0.3rem 0;
-}
-
-/* Custom node styles */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-.app {
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  position: relative;
-}
-
-.flow-container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.react-flow {
-  width: 100%;
-  height: 100%;
-}
-
-.react-flow__node {
-  width: auto !important;
-  position: absolute !important;
 }

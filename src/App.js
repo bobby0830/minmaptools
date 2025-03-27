@@ -38,7 +38,7 @@ const initialNodes = [
       type: 'idea',
       color: '#99ff99',
       size: 'medium',
-      shape: 'rectangle',
+      shape: 'terminal',
     },
     position: { x: 400, y: 100 },
   },
@@ -51,13 +51,21 @@ function Flow() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const { getFrameworkTemplate, getAvailableFrameworks } = useFrameworkTemplates();
   const [selectedFramework, setSelectedFramework] = useState('');
-  const [selectedShape, setSelectedShape] = useState('rectangle');
+  const [selectedShape, setSelectedShape] = useState('terminal');
 
   const shapes = {
-    rectangle: { label: '處理 Process', style: 'shape-rectangle' },
-    diamond: { label: '決策 Decision', style: 'shape-diamond' },
-    oval: { label: '開始/結束 Start/End', style: 'shape-oval' },
-    parallelogram: { label: '輸入/輸出 Input/Output', style: 'shape-parallelogram' }
+    terminal: { label: '開始/結束 Start/End', style: 'shape-terminal' },
+    process: { label: '處理 Process', style: 'shape-process' },
+    decision: { label: '決策 Decision', style: 'shape-decision' },
+    input: { label: '輸入/輸出 Input/Output', style: 'shape-input' },
+    database: { label: '數據庫 Database', style: 'shape-database' },
+    document: { label: '文檔 Document', style: 'shape-document' },
+    display: { label: '顯示 Display', style: 'shape-display' },
+    manual: { label: '人工操作 Manual', style: 'shape-manual' },
+    preparation: { label: '初始化 Preparation', style: 'shape-preparation' },
+    connector: { label: '連接點 Connector', style: 'shape-connector' },
+    predefined: { label: '預定義流程 Predefined', style: 'shape-predefined' },
+    annotation: { label: '註解 Annotation', style: 'shape-annotation' }
   };
 
   const onConnect = useCallback(
@@ -75,7 +83,7 @@ function Flow() {
         type: 'idea',
         color: '#ffffff',
         size: 'medium',
-        shape: data.shape || 'rectangle',
+        shape: data.shape || 'terminal',
       },
     };
     setNodes((nds) => [...nds, newNode]);
@@ -133,7 +141,6 @@ function Flow() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        onPaneClick={onPaneClick}
         nodeTypes={nodeTypes}
         fitView
       >
@@ -160,10 +167,18 @@ function Flow() {
               value={selectedShape}
               onChange={(e) => setSelectedShape(e.target.value)}
             >
-              <option value="rectangle">📦 處理 Process</option>
-              <option value="diamond">💎 決策 Decision</option>
-              <option value="oval">⭕ 開始/結束 Start/End</option>
-              <option value="parallelogram">📥 輸入/輸出 Input/Output</option>
+              <option value="terminal">⭕ 開始/結束 Start/End</option>
+              <option value="process">📦 處理 Process</option>
+              <option value="decision">💎 決策 Decision</option>
+              <option value="input">📥 輸入/輸出 Input/Output</option>
+              <option value="database">💾 數據庫 Database</option>
+              <option value="document">📄 文檔 Document</option>
+              <option value="display">🖥️ 顯示 Display</option>
+              <option value="manual">👆 人工操作 Manual</option>
+              <option value="preparation">🔧 初始化 Preparation</option>
+              <option value="connector">🔗 連接點 Connector</option>
+              <option value="predefined">📋 預定義流程 Predefined</option>
+              <option value="annotation">💭 註解 Annotation</option>
             </select>
           </div>
         </Panel>

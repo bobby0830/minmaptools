@@ -1,6 +1,6 @@
 // Custom node component for mind map
 // 思维导图的自定义节点组件
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { Handle, Position } from 'reactflow';
 
 const nodeTypes = {
@@ -74,15 +74,65 @@ const nodeSizes = {
 };
 
 function CustomNode({ data, selected }) {
-  const nodeClass = `custom-node ${data.shape || 'shape-rectangle'} ${selected ? 'selected' : ''}`;
+  const [isEditing, setIsEditing] = useState(false);
+  const [label, setLabel] = useState(data.label || '');
+
+  const handleDoubleClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      setIsEditing(false);
+      if (data.onChange) {
+        data.onChange(label);
+      }
+    }
+  };
+
+  const handleBlur = () => {
+    setIsEditing(false);
+    if (data.onChange) {
+      data.onChange(label);
+    }
+  };
+
+  const nodeClass = `custom-node ${data.shape || 'shape-terminal'} ${selected ? 'selected' : ''}`;
 
   return (
     <div className={nodeClass}>
-      <Handle type="target" position={Position.Top} />
-      <div className="node-content">
-        {data.label}
+      <Handle 
+        type="target" 
+        position={Position.Top} 
+        style={{ background: '#555' }}
+      />
+      <div className="node-content" onDoubleClick={handleDoubleClick}>
+        {isEditing ? (
+          <input
+            type="text"
+            value={label}
+            onChange={(e) => setLabel(e.target.value)}
+            onKeyDown={handleKeyDown}
+            onBlur={handleBlur}
+            autoFocus
+            style={{
+              width: '100%',
+              border: 'none',
+              background: 'transparent',
+              textAlign: 'center',
+              outline: 'none',
+              fontSize: '14px'
+            }}
+          />
+        ) : (
+          <div>{data.label || '雙擊編輯'}</div>
+        )}
       </div>
-      <Handle type="source" position={Position.Bottom} />
+      <Handle 
+        type="source" 
+        position={Position.Bottom} 
+        style={{ background: '#555' }}
+      />
     </div>
   );
 }
