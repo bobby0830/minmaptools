@@ -1,0 +1,38 @@
+.save-load-buttons {
+  display: flex;
+  gap: 16px;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  color: white;
+}
+
+.action-button.save {
+  background-color: #4CAF50;
+}
+
+.action-button.save:hover {
+  background-color: #45a049;
+}
+
+.action-button.load {
+  background-color: #2196F3;
+}
+
+.action-button.load:hover {
+  background-color: #1976D2;
+}

@@ -2,10 +2,9 @@
 // 保存和加载面板组件
 import React, { useCallback } from 'react';
 import { useReactFlow } from 'reactflow';
+import './SaveLoadPanel.css';
 
-function SaveLoadPanel({ nodes, edges, setNodes, setEdges }) {
-  const { setViewport } = useReactFlow();
-
+function SaveLoadPanel({ nodes, edges, setNodes, setEdges, setViewport }) {
   // Handle saving the mind map
   const handleSave = useCallback(() => {
     const flowData = {
@@ -63,6 +62,8 @@ function SaveLoadPanel({ nodes, edges, setNodes, setEdges }) {
           
           if (flowData.viewport) {
             setViewport(flowData.viewport);
+          } else {
+            setViewport({ x: 0, y: 0, zoom: 1 });
           }
         } catch (error) {
           console.error('Error loading file:', error);
@@ -74,23 +75,16 @@ function SaveLoadPanel({ nodes, edges, setNodes, setEdges }) {
   }, [setNodes, setEdges, setViewport]);
 
   return (
-    <div className="save-load-panel">
-      <button 
-        className="action-button save" 
-        onClick={handleSave}
-        title="Save mind map to JSON file"
-      >
-        <span role="img" aria-label="save">💾</span> Save
+    <div className="save-load-buttons">
+      <button className="action-button save" onClick={handleSave}>
+        💾 Save
       </button>
-      <label 
-        className="action-button load"
-        title="Load mind map from JSON file"
-      >
-        <span role="img" aria-label="load">📂</span> Load
+      <label className="action-button load">
+        📂 Load
         <input
           type="file"
-          accept=".json"
           onChange={handleLoad}
+          accept=".json"
           style={{ display: 'none' }}
         />
       </label>
