@@ -105,6 +105,14 @@ function Flow() {
     addNode({ x: 100, y: 100 });
   }, [addNode]);
 
+  const handleExportPNG = useCallback(() => {
+    // implement export to PNG logic here
+  }, []);
+
+  const handleExportPDF = useCallback(() => {
+    // implement export to PDF logic here
+  }, []);
+
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
       <ReactFlow
@@ -139,14 +147,14 @@ function Flow() {
         </Panel>
 
         <Panel position="top-right" className="action-panel">
-          <ExportPanel nodes={nodes} />
-          <SaveLoadPanel
-            onSave={() => ({ nodes, edges })}
-            onLoad={(flow) => {
-              setNodes(flow.nodes || []);
-              setEdges(flow.edges || []);
-            }}
-          />
+          <div className="export-buttons">
+            <button className="export-button png" onClick={handleExportPNG}>
+              🖼️ PNG
+            </button>
+            <button className="export-button pdf" onClick={handleExportPDF}>
+              📄 PDF
+            </button>
+          </div>
         </Panel>
       </ReactFlow>
     </div>

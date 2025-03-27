@@ -73,9 +73,10 @@ html, body, #root {
 
 /* Action panel styles */
 .action-panel {
-  display: flex;
-  gap: 10px;
-  margin: 10px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
 }
 
 .action-panel button {
@@ -587,31 +588,41 @@ input[type="color"] {
 
 .export-buttons {
   display: flex;
-  gap: 10px;
+  gap: 12px;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.action-button.export {
-  display: flex;
+.export-button {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
   font-weight: 500;
-  transition: all 0.2s ease;
-  background: #4a90e2;
   color: white;
+  transition: all 0.2s ease;
 }
 
-.action-button.export:hover {
-  background: #357abd;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.export-button.png {
+  background-color: #4CAF50;
 }
 
-.action-button.export span {
-  font-size: 1.2em;
+.export-button.png:hover {
+  background-color: #45a049;
+}
+
+.export-button.pdf {
+  background-color: #2196F3;
+}
+
+.export-button.pdf:hover {
+  background-color: #1976D2;
 }
 
 /* Toolbar styles */
