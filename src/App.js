@@ -51,13 +51,21 @@ function Flow() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const { getFrameworkTemplate, getAvailableFrameworks } = useFrameworkTemplates();
   const [selectedFramework, setSelectedFramework] = useState('');
+  const [selectedShape, setSelectedShape] = useState('rectangle');
+
+  const shapes = {
+    rectangle: { label: '處理 Process', style: 'shape-rectangle' },
+    diamond: { label: '決策 Decision', style: 'shape-diamond' },
+    oval: { label: '開始/結束 Start/End', style: 'shape-oval' },
+    parallelogram: { label: '輸入/輸出 Input/Output', style: 'shape-parallelogram' }
+  };
 
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
-  const addNode = useCallback((position) => {
+  const addNode = useCallback((position, data = {}) => {
     const newNode = {
       id: `node_${nodes.length + 1}`,
       type: 'custom',
@@ -67,7 +75,7 @@ function Flow() {
         type: 'idea',
         color: '#ffffff',
         size: 'medium',
-        shape: 'rectangle',
+        shape: data.shape || 'rectangle',
       },
     };
     setNodes((nds) => [...nds, newNode]);
@@ -102,8 +110,12 @@ function Flow() {
   }, [onApplyFramework]);
 
   const onAdd = useCallback(() => {
-    addNode({ x: 100, y: 100 });
-  }, [addNode]);
+    addNode({
+      x: 100,
+      y: 100,
+      data: { shape: selectedShape }
+    });
+  }, [addNode, selectedShape]);
 
   const handleExportPNG = useCallback(() => {
     // implement export to PNG logic here
@@ -142,6 +154,16 @@ function Flow() {
               <option value="">選擇框架 (Select Framework)</option>
               <option value="pareto">82法則 (Pareto Principle)</option>
               <option value="flowchart">流程圖 (Flowchart)</option>
+            </select>
+            <select
+              className="shape-select"
+              value={selectedShape}
+              onChange={(e) => setSelectedShape(e.target.value)}
+            >
+              <option value="rectangle">📦 處理 Process</option>
+              <option value="diamond">💎 決策 Decision</option>
+              <option value="oval">⭕ 開始/結束 Start/End</option>
+              <option value="parallelogram">📥 輸入/輸出 Input/Output</option>
             </select>
           </div>
         </Panel>
