@@ -1,84 +1,35 @@
-import React, { useCallback } from 'react';
-import { Panel, useReactFlow } from 'reactflow';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import React from 'react';
+import { toPng } from 'html-to-image';
 
-function ExportPanel() {
-  const { getNodes, getEdges } = useReactFlow();
-
-  const downloadImage = useCallback(async (type) => {
-    const flow = document.querySelector('.react-flow');
-    if (!flow) return;
-
-    try {
-      // Reset zoom and center the view
-      const flowWrapper = document.querySelector('.react-flow__viewport');
-      const originalTransform = flowWrapper.style.transform;
-      flowWrapper.style.transform = 'translate(0,0) scale(1)';
-
-      const canvas = await html2canvas(flow, {
+const ExportPanel = () => {
+  // 導出為圖片
+  const exportImage = () => {
+    const flowElement = document.querySelector('.react-flow');
+    if (flowElement) {
+      toPng(flowElement, {
         backgroundColor: '#ffffff',
-        useCORS: true,
-        scale: 2, // Higher resolution
-      });
-
-      // Restore original transform
-      flowWrapper.style.transform = originalTransform;
-
-      if (type === 'png') {
-        const dataUrl = canvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = dataUrl;
-        a.download = 'mindmap.png';
-        a.click();
-        a.remove();
-      } else if (type === 'pdf') {
-        const width = canvas.width;
-        const height = canvas.height;
-        const pdf = new jsPDF({
-          orientation: width > height ? 'landscape' : 'portrait',
-          unit: 'px',
-          format: [width, height]
+        quality: 1,
+      })
+        .then((dataUrl) => {
+          const link = document.createElement('a');
+          link.href = dataUrl;
+          link.download = 'flowchart.png';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        })
+        .catch((error) => {
+          console.error('Error exporting image:', error);
+          alert('無法導出圖片，請稍後再試。');
         });
-        
-        pdf.addImage(
-          canvas.toDataURL('image/png'),
-          'PNG',
-          0,
-          0,
-          width,
-          height,
-          '',
-          'FAST'
-        );
-        pdf.save('mindmap.pdf');
-      }
-    } catch (error) {
-      console.error('Export failed:', error);
-      alert('Export failed. Please try again.');
     }
-  }, []);
+  };
 
   return (
-    <Panel position="top-right" className="export-panel">
-      <div className="export-buttons">
-        <button 
-          className="action-button export png" 
-          onClick={() => downloadImage('png')}
-          title="Export as PNG image"
-        >
-          <span role="img" aria-label="image">🖼️</span> PNG
-        </button>
-        <button 
-          className="action-button export pdf" 
-          onClick={() => downloadImage('pdf')}
-          title="Export as PDF document"
-        >
-          <span role="img" aria-label="pdf">📄</span> PDF
-        </button>
-      </div>
-    </Panel>
+    <button onClick={exportImage} className="export-btn" title="導出為圖片">
+      🖼️ 導出圖片
+    </button>
   );
-}
+};
 
 export default ExportPanel;
