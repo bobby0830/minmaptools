@@ -11,6 +11,7 @@ import ReactFlow, {
   Panel,
   ReactFlowProvider,
   SelectionMode,
+  BackgroundVariant,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import './App.css';
@@ -41,7 +42,7 @@ const initialNodes = [
       color: '#99ff99',
       size: 'medium',
       shape: 'rectangle',
-      onChange: (label) => console.log('label changed:', label) 
+      onChange: (label: string) => console.log('label changed:', label) 
     },
     position: { x: 400, y: 100 },
   },
@@ -49,7 +50,7 @@ const initialNodes = [
 
 // Initial edges (connections) for the mind map
 // 思维导图的初始连接
-const initialEdges = [];
+const initialEdges: any[] = [];
 
 // Flow component that contains the actual mind map
 // 包含实际思维导图的Flow组件
@@ -65,7 +66,7 @@ function Flow() {
 
   // Handle node label changes
   // 处理节点标签变化
-  const handleNodeLabelChange = useCallback((nodeId, newLabel) => {
+  const handleNodeLabelChange = useCallback((nodeId: string, newLabel: string) => {
     setNodes((nds) =>
       nds.map((node) => {
         if (node.id === nodeId) {
@@ -82,7 +83,7 @@ function Flow() {
   // Add new node at a specific position
   // 在特定位置添加新节点
   const addNode = useCallback(
-    (position) => {
+    (position: { x: number, y: number }) => {
       const newNode = {
         id: `node_${nodes.length + 1}`,
         type: 'custom',
@@ -90,7 +91,7 @@ function Flow() {
         data: {
           label: `Node ${nodes.length + 1}`,
           ...nodeStyle,
-          onChange: (newLabel) => {
+          onChange: (newLabel: string) => {
             setNodes((nds) =>
               nds.map((node) => {
                 if (node.id === newNode.id) {
@@ -110,16 +111,16 @@ function Flow() {
   // Handle new connections between nodes
   // 处理节点之间的新连接
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params: any) => setEdges((eds) => addEdge(params, eds)),
     [setEdges]
   );
 
   // Handle click on the canvas to add new node
   // 点击画布添加新节点
   const onPaneClick = useCallback(
-    (event) => {
-      if (event.detail === 2 && event.target.classList.contains('react-flow__pane')) {
-        const bounds = event.target.getBoundingClientRect();
+    (event: React.MouseEvent<Element, MouseEvent>) => {
+      if (event.detail === 2 && (event.target as HTMLElement).classList.contains('react-flow__pane')) {
+        const bounds = (event.target as HTMLElement).getBoundingClientRect();
         const position = {
           x: event.clientX - bounds.left,
           y: event.clientY - bounds.top,
@@ -133,7 +134,7 @@ function Flow() {
   // Delete selected nodes when Delete key is pressed
   // 按Delete键删除选中的节点
   const onKeyDown = useCallback(
-    (event) => {
+    (event: React.KeyboardEvent) => {
       if (event.key === 'Delete' || event.key === 'Backspace') {
         setNodes((nds) => nds.filter((node) => !node.selected));
         setEdges((eds) => eds.filter((edge) => !edge.selected));
@@ -163,11 +164,11 @@ function Flow() {
         multiSelectionKeyCode={null}
         deleteKeyCode={['Delete', 'Backspace']}
       >
-        <Background variant="dots" gap={12} size={1} />
+        <Background variant={BackgroundVariant.Lines} gap={12} size={1} />
         <Controls />
         <MiniMap />
         <NodeControls
-          onAddNode={(style) => {
+          onAddNode={(style: any) => {
             const center = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
             addNode(center);
           }}
