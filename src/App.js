@@ -21,6 +21,7 @@ import CustomNode from './components/CustomNode';
 import NodeControls from './components/NodeControls';
 import SaveLoadPanel from './components/SaveLoadPanel';
 import ExportPanel from './components/ExportPanel';
+import AIAssistant from './components/AIAssistant';
 import AIService from './services/AIService';
 
 // Define node types mapping
@@ -180,6 +181,7 @@ function Flow() {
           setEdges={setEdges} 
         />
         <ExportPanel />
+        <AIAssistant />
       </ReactFlow>
     </div>
   );
