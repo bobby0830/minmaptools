@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useReactFlow, Panel } from 'reactflow';
-import OpenAIService from '../services/OpenAIService';
+import OpenAIService from '../services/OpenAIService.js';
 
 function AIAssistant() {
   const [prompt, setPrompt] = useState('');

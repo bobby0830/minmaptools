@@ -17,12 +17,12 @@ import './App.css';
 
 // Import custom components
 // 导入自定义组件
-import CustomNode from './components/CustomNode';
-import NodeControls from './components/NodeControls';
-import SaveLoadPanel from './components/SaveLoadPanel';
-import ExportPanel from './components/ExportPanel';
-import AIAssistant from './components/AIAssistant';
-import AIService from './services/AIService';
+import CustomNode from './components/CustomNode.js';
+import NodeControls from './components/NodeControls.js';
+import SaveLoadPanel from './components/SaveLoadPanel.js';
+import ExportPanel from './components/ExportPanel.js';
+import AIAssistant from './components/AIAssistant.js';
+import AIService from './services/AIService.js';
 
 // Define node types mapping
 // 定义节点类型映射

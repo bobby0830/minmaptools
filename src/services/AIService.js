@@ -1,4 +1,4 @@
-import { MCPSchema } from '../utils/MCPProtocol';
+import { MCPSchema } from '../utils/MCPProtocol.js';
 
 class AIService {
   constructor() {

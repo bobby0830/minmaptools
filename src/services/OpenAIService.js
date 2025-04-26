@@ -1,5 +1,5 @@
 // OpenAI服务 - 连接OpenAI API和MCP协议
-import MCPService from './MCPService';
+import MCPService from './MCPService.js';
 
 // MCP函数定义，用于OpenAI function calling
 const mcpFunctions = [
