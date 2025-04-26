@@ -1,0 +1,146 @@
+/* General app styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* ReactFlow customizations */
+.react-flow__handle {
+  width: 8px;
+  height: 8px;
+  background-color: #555;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.react-flow__handle:hover {
+  background-color: #777;
+}
+
+.react-flow__node {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.react-flow__node.selected {
+  box-shadow: 0 0 0 2px #1a192b;
+}
+
+/* Custom node styling */
+.custom-node {
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.4;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.custom-node:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Node type icons */
+.node-type-icon {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  font-size: 18px;
+  background: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+/* Panel styling */
+.controls-panel,
+.save-load-panel,
+.export-panel {
+  margin: 10px;
+  z-index: 10;
+}
+
+.panel-container {
+  transition: all 0.3s ease;
+}
+
+/* Button styling */
+button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+/* Edge styling */
+.react-flow__edge-path {
+  stroke: #555;
+  stroke-width: 2;
+  transition: stroke 0.2s ease, stroke-width 0.2s ease;
+}
+
+.react-flow__edge.selected .react-flow__edge-path {
+  stroke: #1a192b;
+  stroke-width: 3;
+}
+
+/* Animation for node creation */
+@keyframes nodeAppear {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.react-flow__node {
+  animation: nodeAppear 0.3s ease-out;
+}
+
+/* Tooltip style */
+.tooltip {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Help overlay */
+.help-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.help-content {
+  max-width: 600px;
+  background-color: #282c34;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}

@@ -1,0 +1,38 @@
+# 依赖包目录 (Dependencies directory)
+# node_modules 包含所有项目依赖的第三方库
+/node_modules
+/.pnp
+.pnp.js
+
+# 构建输出目录 (Build output directory)
+# build 和 dist 目录包含构建后的文件
+/build
+
+# 环境变量文件 (Environment variable files)
+# 这些文件包含敏感信息，如API密钥
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 日志文件 (Log files)
+# 运行时产生的日志文件
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 编辑器目录和文件 (Editor directories and files)
+# 编辑器特定的设置和缓存文件
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 操作系统生成的文件 (OS generated files)
+# 系统自动生成的文件
+.DS_Store
+Thumbs.db
